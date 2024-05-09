@@ -34,3 +34,12 @@ python wallet.py data -r 2
 ```
 python wallet.py data 
 ```
+# Найти все для 5.5.24 за сутки
+```
+python wallet.py data -d 5.5.24
+```
+# Найти все для интервала с 5.5.24 по 10.5.24 не включительно
+```
+python wallet.py data -d 5.5.24-10.5.24
+```
+
