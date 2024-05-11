@@ -74,7 +74,7 @@ def main():
             # Всего ушло
             o = 0
             # Фильтруем по условиям поиска
-            for r in db.find(args.fbd, args.fbs, args.fbc):
+            for r in sorted(db.find(args.fbd, args.fbs, args.fbc), key=lambda x:x["date"]):
                 dmodel.print_rec(r)
                 if r["category"] == "incoming":
                     # Считаем общий приход
