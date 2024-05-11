@@ -112,14 +112,16 @@ class DB:
             pass
         else:
             raise EInvDateFormat()
-        res = []
         for r in self.data_get:
             if (args.fbd is None or ( r["date"] >= bd and r["date"] < ed )) and \
                     (args.fbs is None or ( r["summ"] == args.fbs )) and \
                     (args.fbc is None or (args.fbc in r["desc"])):
-                res.append(r)
-        return res
+                yield r
+        return
 
+    def iter(self):
+        for i in self.data_get:
+            yield i
     def remove(self, id:int):
         """
         @id - Идентификатор удаляемой записи
