@@ -91,14 +91,17 @@ class DB:
             if r["id"] == id:
                 return r
 
-    def find(self,  args: argparse.Namespace) -> []:
+    def find(self,  dates:str, summ:int, desc:str) -> []:
         """
-        @agrs - здесь условия поиска
+        @dates - дата или диапазон дат
+        @summ - сумма
+        @desc - подстрока описания
+        Если значение  None - то соответствует всем записям
          Поиск записей
         """
         dd = ()
-        if args.fbd is not None:
-            dd = args.fbd.split("-")
+        if dates is not None:
+            dd = dates.split("-")
         if len(dd) == 1:
             # Если нет разделителя "-" значит указана одна дата
             bd = datetime.datetime.strptime(dd[0], "%d.%m.%y")
@@ -113,9 +116,9 @@ class DB:
         else:
             raise EInvDateFormat()
         for r in self.data_get:
-            if (args.fbd is None or ( r["date"] >= bd and r["date"] < ed )) and \
-                    (args.fbs is None or ( r["summ"] == args.fbs )) and \
-                    (args.fbc is None or (args.fbc in r["desc"])):
+            if (dates is None or ( r["date"] >= bd and r["date"] < ed )) and \
+                    (summ is None or ( r["summ"] == summ )) and \
+                    (desc is None or (desc in r["desc"])):
                 yield r
         return
 

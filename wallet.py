@@ -74,7 +74,7 @@ def main():
             # Всего ушло
             o = 0
             # Фильтруем по условиям поиска
-            for r in db.find(args):
+            for r in db.find(args.fbd, args.fbs, args.fbc):
                 dmodel.print_rec(r)
                 if r["category"] == "incoming":
                     # Считаем общий приход
